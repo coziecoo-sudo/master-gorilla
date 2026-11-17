@@ -13,7 +13,10 @@ z = round((price - m.iloc[-1]) / s.iloc[-1], 2)
 pz = round((c.iloc[-2] - m.iloc[-2]) / s.iloc[-2], 2)
 
 hook = (pz < -2.0) and (z >= -2.0)
-status = "[BUY HOOK ACTIVE!]" if hook else "[STANDBY - NO ANOMALY]"
-msg = f"GORILLA CLOUD: BUY BTC ${price} | Z:{z}"
+status = "[BUY HOOK ACTIVE!]" if hook else "[STANDBY]"
+msg = f"GORILLA: BUY BTC ${price} | Z:{z}"
 
-u.urlopen("https://ntfy.sh/cozie-btc-alerts", msg.encode()) if h
+if hook:
+    u.urlopen("https://ntfy.sh/cozie-btc-alerts", msg.encode())
+
+print("RUN SUCCESSFUL | BTC:", price, "| Z:", z, "| STATUS:", status)
