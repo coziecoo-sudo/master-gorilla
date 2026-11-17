@@ -1,0 +1,24 @@
+name: Master Gorilla 247 Clock
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-gorilla:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install ccxt pandas
+
+      - name: Run Master Gorilla Bot
+        run: python gorilla.py
